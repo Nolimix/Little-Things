@@ -13,26 +13,21 @@ Although this version is no longer actively maintained, it represents an importa
 * Responsive design
 * About Me section
 * Projects showcase
-* Skills presentation
 * Contact information
-* Simple and clean user interface
 
 ## 🛠️ Technologies Used
 
-* HTML5
-* CSS3
+* HTML
+* CSS
 * JavaScript
 
 ## 📂 Project Structure
 
 ```text
-portfolio-legacy/
-├── assets/
-│   ├── images/
-│   └── icons/
+Website/
+├── img/
 ├── css/
 ├── js/
-├── index.html
 └── README.md
 ```
 
@@ -41,13 +36,13 @@ portfolio-legacy/
 ### Clone the repository
 
 ```bash
-git clone https://github.com/your-username/portfolio-legacy.git
+git clone https://github.com/your-username/litte-things.git
 ```
 
 ### Navigate to the project directory
 
 ```bash
-cd portfolio-legacy
+cd little-things
 ```
 
 ### Open the website
@@ -59,7 +54,7 @@ Simply open the `index.html` file in your browser.
 Add screenshots or GIFs of the website here.
 
 ```markdown
-![Portfolio Preview](./assets/images/preview.png)
+![Portfolio Preview](./assets/img/preview.png)
 ```
 
 ## ⚠️ Status
@@ -80,10 +75,10 @@ This project is available for educational and portfolio purposes. Feel free to e
 
 ## 👤 Author
 
-**Your Name**
+**Nolimix**
 
-* GitHub: https://github.com/your-username
-* Portfolio: https://your-portfolio-url.com
+* GitHub: https://github.com/Nolimix
+* Portfolio: https://nolimix.dev
 
 ---
 
