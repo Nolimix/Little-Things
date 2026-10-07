@@ -1,0 +1,342 @@
+/* =========================================================
+   VARIABLES GLOBALES
+========================================================= */
+:root {
+  --navbar-padding: 34px 0;
+  --logo-font-size: 20px;
+  --nav-icon-size: 35px;
+  --nav-left-font-size: 25px;
+  --underline-height: 1px;
+  --underline-scale: 1.2; /* ← permet d’allonger facilement le soulignement */
+  --navbar-bg: transparent; /* état de base : le fond étoilé se voit à travers */
+  --navbar-fg: #fff;        /* texte et icônes de l'état de base */
+  --navbar-line: rgba(255, 255, 255, 0.16); /* couleur de la bande sous la navbar (non scrollée) */
+  --navbar-line-height: 1px;                /* épaisseur de la bande */
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* =========================================================
+   NAVBAR (DESKTOP)
+========================================================= */
+.navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%; /* 100vw dépassait de la largeur de la barre de défilement => page scrollable en largeur */
+  background: var(--navbar-bg);
+  color: var(--navbar-fg);
+  display: flex;
+  justify-content: center;
+  transition: background 0.4s ease, box-shadow 0.4s ease,
+              transform 0.4s ease, opacity 0.4s ease, visibility 0.4s;
+  z-index: 1000;
+}
+
+/* Bande de délimitation en bas de la navbar (visible uniquement quand elle n'est PAS scrollée).
+   C'est un pseudo-élément : il ne change pas la hauteur de la navbar. */
+.navbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--navbar-line-height);
+  background: var(--navbar-line);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.nav-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--navbar-padding);
+  padding-inline: 0;
+}
+
+/* =========================================================
+   BOUTON BURGER
+========================================================= */
+.btn-burger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: inherit;
+  margin-right: 16px;
+  z-index: 2000;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.btn-burger.active::before {
+  content: "✕";
+  font-size: 34px;
+}
+
+@media (hover: hover) {
+  .btn-burger:hover {
+    color: #f0c040;
+  }
+}
+
+/* =========================================================
+   LOGO
+========================================================= */
+.logo {
+  font-size: var(--logo-font-size);
+  font-weight: 700;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* =========================================================
+   NAV LINKS
+========================================================= */
+.nav-links {
+  display: flex;
+  align-items: center;
+  font-size: var(--nav-left-font-size);
+  font-family: "Poppins", sans-serif;
+}
+
+/* ----- Lien et effet souligné ----- */
+.nav-links a {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
+  transition: color 0.3s ease, transform 0.18s ease, font-weight 0.12s ease;
+}
+
+/* Soulignage animé depuis le centre */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 0;
+  height: var(--underline-height);
+  background-color: currentColor;
+  transform: translateX(-50%) scaleX(var(--underline-scale));
+  transform-origin: center;
+  transition: width 0.3s ease;
+}
+
+/* Effets de survol uniquement sur les appareils qui ont une vraie souris :
+   sur écran tactile le :hover "colle" après un toucher et gonflait les icônes. */
+@media (hover: hover) {
+  .nav-links a:hover {
+    color: #fff;
+    font-weight: 600;
+    transform: translateY(-2px);
+  }
+
+  .nav-links a:hover::after {
+    width: 260px;
+  }
+}
+
+/* =========================================================
+   NAV SOCIALS
+========================================================= */
+.nav-socials {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  margin-left: auto;
+}
+
+.nav-socials a img {
+  width: var(--nav-icon-size);
+  height: auto;
+  filter: invert(1);
+  transition: filter 0.3s ease, transform 0.18s ease;
+}
+
+@media (hover: hover) {
+  .nav-socials a:hover img {
+    transform: rotate(10deg) scale(1.4);
+    filter: brightness(0) saturate(100%) invert(53%) sepia(97%)
+            saturate(2252%) hue-rotate(2deg) brightness(101%) contrast(102%);
+    transition: transform 1.25s cubic-bezier(0.22, 1, 0.36, 1), filter 1.25s ease;
+  }
+}
+
+/* =========================================================
+   SCROLLED STATE
+========================================================= */
+.navbar.scrolled {
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Une fois scrollée, la navbar a déjà son fond et son ombre : la bande s'efface en fondu */
+.navbar.scrolled::after {
+  opacity: 0;
+}
+
+/* VERSION "la navbar disparaît au scroll"
+   Dès qu'on quitte le haut de la page, la navbar (avec sa bande) glisse vers le haut et s'efface.
+   Elle revient quand on remonte tout en haut.
+   Exception : si le menu burger est ouvert (.hidden), elle reste affichée pour pouvoir le refermer.
+   Pour revenir à l'ancien comportement (barre sombre au scroll), supprime ce bloc. */
+.navbar.scrolled:not(.hidden) {
+  background: transparent;
+  box-shadow: none;
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.navbar.scrolled .logo,
+.navbar.scrolled .nav-links a {
+  color: #fff;
+}
+
+.navbar.scrolled .nav-socials a img {
+  filter: invert(1);
+}
+@media (hover: hover) {
+  .navbar.scrolled .nav-socials a:hover img {
+    filter: brightness(0) saturate(100%) invert(53%) sepia(97%)
+            saturate(2252%) hue-rotate(2deg) brightness(101%) contrast(102%);
+  }
+}
+/* =========================================================
+   VERSION MOBILE
+========================================================= */
+@media (max-width: 900px) {
+
+  /* Bouton burger visible */
+  .btn-burger {
+    display: block;
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* Logo centré */
+  .logo {
+    margin: 0 auto;
+    pointer-events: none;
+  }
+
+  /* Icônes sociales à droite */
+  .nav-socials {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* --- MENU LATÉRAL --- */
+  .nav-links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 12.5%;           /* 1/8 de la page */
+    min-width: 220px;
+    max-width: 320px;
+    height: 100vh;
+    height: 100dvh;         /* hauteur réelle visible sur téléphone (barre d'adresse comprise) */
+    background: rgba(0, 0, 0, 0.95);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 100px 20px 20px 20px;
+    gap: 20px;
+    z-index: 1500;
+    transform: translateX(-100%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(.2,.9,.3,1), opacity 0.35s ease, visibility 0.35s ease;
+  }
+
+  .nav-links.open {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    animation: slideIn 0.45s cubic-bezier(.2,.9,.3,1) forwards;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(-20%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .nav-links a {
+    font-size: 1.1rem;
+    color: white;
+    font-weight: 600;
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    transition: color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+  }
+
+  @media (hover: hover) {
+    .nav-links a:hover {
+      background: rgba(240,192,64,0.08);
+      transform: translateX(6px);
+      color: #40f0bb;
+    }
+  }
+
+  .nav-links a::after {
+    display: none;
+  }
+
+  /* Navbar hidden (pendant transition) */
+  .navbar.hidden {
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .navbar.hidden::after {
+    opacity: 0; /* pas de bande quand le menu burger est ouvert */
+  }
+
+  .navbar.hidden .nav-container > *:not(.nav-links):not(.btn-burger) {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+  }
+}
+
+/* =========================================================
+   PETITS TÉLÉPHONES (≤ 480px)
+   Les 5 icônes (295px de large) chevauchaient le burger sous ~360px.
+========================================================= */
+@media (max-width: 480px) {
+  :root {
+    --nav-icon-size: 28px;
+  }
+
+  .nav-socials {
+    gap: 16px;
+  }
+}

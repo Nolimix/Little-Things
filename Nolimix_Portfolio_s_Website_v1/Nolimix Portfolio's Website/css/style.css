@@ -1,0 +1,91 @@
+:root {
+  --space: #05070f;
+  --space-2: #0d1226;
+  --ink: #e9ecf5;
+  --muted: #9aa3b8;
+  --accent: #f6a623;
+  --line: rgba(255,255,255,.16);
+  --font: 'Poppins', sans-serif;
+  /* Décalage vers la gauche du contenu (hero, sections, footer).
+     0px = ancien centrage. Augmente pour coller plus à gauche, diminue pour revenir vers le centre. */
+  --shift-content: 105px;
+  --content-left: max(0px, calc((100% - 1100px) / 2 - var(--shift-content)));
+}
+* { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  background: radial-gradient(ellipse at 50% 0%, var(--space-2) 0%, var(--space) 60%) fixed;
+  color: var(--ink);
+  font-family: var(--font);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%; /* empêche les navigateurs mobiles de regonfler les tailles de texte */
+}
+body { min-height: 100vh; background: transparent; line-height: 1.6; }
+#stars { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+
+/* ===== Zones de sélection =====
+   Par défaut rien n'est sélectionnable : un double-clic dans le vide
+   (à côté du texte) ne sélectionne plus rien.
+   Seules les "cases" de texte ci-dessous restent sélectionnables,
+   et elles épousent leur contenu (fit-content) pour ne pas déborder dans le vide. */
+body {
+  -webkit-user-select: none;
+  user-select: none;
+}
+.hero-text,
+.block h2,
+.intro,
+.rank,
+.empty,
+.site-footer span {
+  -webkit-user-select: text;
+  user-select: text;
+}
+.block h2 { width: fit-content; }
+
+main a { color: var(--accent); text-decoration: none; }
+main a:hover { text-decoration: underline; }
+h1, h2, h3, p { margin: 0; }
+
+.hero {
+  display: flex; align-items: center; justify-content: space-between; gap: 4rem;
+  max-width: 1100px; margin: 0 auto 0 var(--content-left); padding: 7rem 2rem 6rem;
+}
+.hero-text { max-width: 560px; }
+h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.1; font-weight: 700; letter-spacing: -.02em; }
+.lead { margin-top: 1.5rem; font-size: 1.1rem; color: var(--muted); max-width: 46ch; }
+main .btn {
+  display: inline-block; margin-top: 2rem; padding: .8rem 1.6rem;
+  border: 2px solid var(--accent); border-radius: 999px;
+  color: var(--accent); font-weight: 600; transition: background .25s, color .25s;
+}
+main .btn:hover { background: var(--accent); color: #111; text-decoration: none; }
+
+.hero-img { margin: 0; text-align: center; flex-shrink: 0; }
+.hero-img img {
+  width: min(340px, 70vw); aspect-ratio: 1; object-fit: cover; border-radius: 50%;
+  border: 6px solid rgba(246,166,35,.25);
+}
+.hero-img figcaption { margin-top: .6rem; font-size: .85rem; color: var(--muted); }
+
+.block { max-width: 1100px; margin: 0 auto 0 var(--content-left); padding: 4rem 2rem; scroll-margin-top: 90px; }
+h2 { font-size: 2rem; font-weight: 600; margin-bottom: 1.2rem; }
+.intro { max-width: 60ch; color: var(--muted); }
+.ranks { display: flex; flex-wrap: wrap; gap: 2.5rem; margin-top: 2.5rem; }
+.rank { border-left: 3px solid var(--accent); padding-left: 1.2rem; }
+.rank h3 { font-size: 1.25rem; font-weight: 600; }
+.rank p { color: var(--muted); }
+
+.empty { border: 1.5px dashed var(--line); border-radius: 14px; padding: 2.5rem 2rem; max-width: 640px; }
+.empty .muted { color: var(--muted); margin-top: .4rem; }
+
+.site-footer {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem;
+  max-width: 1100px; margin: 3rem auto 0 var(--content-left); padding: 1.5rem 2rem;
+  border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem;
+}
+
+@media (max-width: 800px) {
+  .hero { flex-direction: column-reverse; text-align: center; padding-top: 4rem; gap: 2.5rem; }
+  .lead { margin-inline: auto; }
+}

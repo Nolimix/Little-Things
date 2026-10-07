@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nolimix – Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link href="img/Nolimix Website Icon.png" rel="icon">
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+
+  <!-- Navbar (identique à l'ancien site) -->
+  <header id="navbar" class="navbar">
+    <div class="nav-container">
+      <nav class="nav-links">
+        <a href="#top">Nolimix</a>
+        <a href="#about">Who am I ?</a>
+        <a href="#projets">Projets</a>
+      </nav>
+
+      <div class="nav-socials">
+        <a href="https://www.instagram.com/e.grvl_" target="_blank" rel="noopener noreferrer"><img src="https://simpleicons.org/icons/instagram.svg" alt="Instagram"></a>
+        <a href="https://www.tiktok.com/@nolimixrl" target="_blank" rel="noopener noreferrer"><img src="https://simpleicons.org/icons/tiktok.svg" alt="TikTok"></a>
+        <a href="https://x.com/_nolimix" target="_blank" rel="noopener noreferrer"><img src="https://simpleicons.org/icons/x.svg" alt="X"></a>
+        <a href="https://www.youtube.com/@Nolimix" target="_blank" rel="noopener noreferrer"><img src="https://simpleicons.org/icons/youtube.svg" alt="YouTube"></a>
+        <a href="https://www.twitch.tv/ruryarl" target="_blank" rel="noopener noreferrer"><img src="https://simpleicons.org/icons/twitch.svg" alt="Twitch"></a>
+      </div>
+
+      <button class="btn-burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">&#9776;</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Doing little things to make the world a better place !</h1>
+        <p class="lead">Currently a Web design student at My Digital School in Lille. This Portfolio will grow over time.</p>
+        <a class="btn" href="#projets">Voir mes projets</a>
+      </div>
+      
+    </section>
+
+    <section id="about" class="block">
+      <h2>Qui suis-je ?</h2>
+      <p class="intro">Des années de compétition m'ont habitué à analyser mes erreurs et à progresser par la répétition. J'applique la même méthode à la programmation.</p>
+      <div class="ranks">
+        <div class="rank">
+          <h3>Rocket League</h3>
+          <p>Top 100, saison après saison.</p>
+        </div>
+        <div class="rank">
+          <h3>League of Legends</h3>
+          <p>Master / Grand Master.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projets" class="block">
+      <h2>Projets</h2>
+      <div class="empty">
+        <p>Aucun projet pour le moment.</p>
+        <p class="muted">Les premiers arrivent bientôt : chacun aura sa description et un lien vers son code.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>© 2026 Nolimix</span>
+    <span>contact-nolimix@gmail.com</span>
+  </footer>
+
+  <script src="js/navbar/button-burger.js"></script>
+  <script src="js/navbar/navbar-scrolled.js"></script>
+  <script src="js/navbar/navbar.js"></script>
+  <script src="js/stars.js"></script>
+</body>
+</html>
